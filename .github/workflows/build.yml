@@ -53,10 +53,15 @@ jobs:
       - name: List uploaded artifacts
         run: |
           echo "Uploaded artifacts:"
+
           echo "Sources JAR:"
-          ls -l ./build/libs/*-sources.jar
+          find ./build/libs/ -name "*-sources.jar" -exec ls -l {} \; || echo "No sources JAR found."
+
           echo "Javadoc JAR:"
-          ls -l ./build/libs/*-javadoc.jar
-          echo "Main JARs:"
-          ls -l ./fabric/build/libs/*.jar
-          ls -l ./forge/build/libs/*.jar
+          find ./build/libs/ -name "*-javadoc.jar" -exec ls -l {} \; || echo "No javadoc JAR found."
+
+          echo "Fabric JAR:"
+          find ./fabric/build/libs/ -name "*.jar" -exec ls -l {} \; || echo "No Fabric JAR found."
+
+          echo "Forge JAR:"
+          find ./forge/build/libs/ -name "*.jar" -exec ls -l {} \; || echo "No Forge JAR found."
