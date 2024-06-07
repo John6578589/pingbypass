@@ -29,3 +29,34 @@ jobs:
 
       - name: Build jars
         run: ./gradlew build
+
+      - name: Upload sources jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: sources-jar
+          path: ./build/libs/*-sources.jar
+
+      - name: Upload javadoc jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: javadoc-jar
+          path: ./build/libs/*-javadoc.jar
+
+      - name: Upload main jars
+        uses: actions/upload-artifact@v3
+        with:
+          name: main-jars
+          path: |
+            ./fabric/build/libs/*.jar
+            ./forge/build/libs/*.jar
+
+      - name: List uploaded artifacts
+        run: |
+          echo "Uploaded artifacts:"
+          echo "Sources JAR:"
+          ls -l ./build/libs/*-sources.jar
+          echo "Javadoc JAR:"
+          ls -l ./build/libs/*-javadoc.jar
+          echo "Main JARs:"
+          ls -l ./fabric/build/libs/*.jar
+          ls -l ./forge/build/libs/*.jar
